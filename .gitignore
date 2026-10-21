@@ -25,6 +25,8 @@ node_modules
 .wrangler
 wrangler.deploy.jsonc
 site
+# Vertflux 的 Pages 域名入口属于部署源码。
+!deploy/vertflux-gateway/site/
 cache
 public/world.json
 .dev.*
