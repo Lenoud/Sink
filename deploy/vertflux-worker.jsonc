@@ -1,0 +1,51 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vertflux-sink",
+  "main": "../.output/server/index.mjs",
+  "account_id": "bf8566234d0f57c2451986e3cdcb01c4",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "../.output/public",
+    "html_handling": "drop-trailing-slash"
+  },
+  "compatibility_date": "2026-10-20",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "keep_vars": true,
+  "upload_source_maps": true,
+  "observability": {
+    "logs": {
+      "enabled": true
+    }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "b0c20849e3c049e3b87c38b68c9a26ad",
+      "preview_id": "b0c20849e3c049e3b87c38b68c9a26ad"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vertflux-sink-d1",
+      "database_id": "e91efd4e-7a6a-4e7b-aa02-8aa65340d45f",
+      "migrations_dir": "../drizzle"
+    }
+  ],
+  "vars": {
+    "NUXT_CF_ACCOUNT_ID": "bf8566234d0f57c2451986e3cdcb01c4",
+    "NUXT_DATASET": "vertflux_sink",
+    "NUXT_DISABLE_AUTO_BACKUP": "true",
+    "NUXT_PUBLIC_PREVIEW_MODE": "false"
+  },
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "vertflux_sink"
+    }
+  ],
+  "workers_dev": true,
+  "preview_urls": false
+}

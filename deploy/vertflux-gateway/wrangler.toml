@@ -1,0 +1,7 @@
+name = "vertflux-go"
+pages_build_output_dir = "./site"
+compatibility_date = "2026-10-20"
+
+[[services]]
+binding = "SINK_APP"
+service = "vertflux-sink"
