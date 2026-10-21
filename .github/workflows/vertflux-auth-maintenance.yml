@@ -1,0 +1,32 @@
+name: Vertflux 认证旧入口维护
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '先审计，再清理接入认证前的历史 Pages 版本；当前及后续受保护版本会保留'
+        type: choice
+        options: [audit, cleanup]
+        default: audit
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vertflux-auth-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    name: 检查旧的预览入口
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: 审计或清理认证前的部署
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          VERTFLUX_MODE: ${{ inputs.mode }}
+        run: python3 .github/scripts/vertflux-clean-legacy-pages.py
