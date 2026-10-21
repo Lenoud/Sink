@@ -42,9 +42,9 @@ for project, commit in BASELINES.items():
     deployments = []
     page = 1
     while True:
-        batch = api(f'pages/projects/{project}/deployments?per_page=100&page={page}')['result']
+        batch = api(f'pages/projects/{project}/deployments?per_page=25&page={page}')['result']
         deployments.extend(batch)
-        if len(batch) < 100:
+        if len(batch) < 25:
             break
         page += 1
     baseline = [item for item in deployments if item.get('deployment_trigger', {}).get('metadata', {}).get('commit_hash') == commit and item.get('latest_stage', {}).get('status') == 'success']
