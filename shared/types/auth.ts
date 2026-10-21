@@ -1,4 +1,4 @@
-export type AuthMethod = 'site-token' | 'access-user' | 'access-service'
+export type AuthMethod = 'site-token' | 'access-user' | 'access-service' | 'vertflux-sso'
 
 export interface VerifyResponse {
   name: string

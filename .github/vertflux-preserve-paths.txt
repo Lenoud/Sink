@@ -2,3 +2,8 @@
 deploy/vertflux-gateway
 deploy/vertflux-worker.jsonc
 docs/vertflux-deployment.md
+nuxt.config.ts
+server/middleware/2.auth.ts
+server/api/verify.get.ts
+shared/types/auth.ts
+app/components/dashboard/Logout.vue

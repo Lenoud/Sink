@@ -24,6 +24,11 @@ function logOut() {
   removeAuthToken()
   clearAuthSession()
 
+  if (method === 'vertflux-sso') {
+    window.location.assign('/oauth2/sign_out?rd=/signed-out')
+    return
+  }
+
   if (shouldLogoutAccess) {
     window.location.assign('/cdn-cgi/access/logout')
     return

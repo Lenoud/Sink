@@ -6,6 +6,16 @@ export default eventHandler(async (event) => {
 
   const token = getHeader(event, 'Authorization')?.replace(/^Bearer\s+/, '')
   if (await verifySiteToken(token, useRuntimeConfig(event).siteToken)) {
+    const subject = getHeader(event, 'X-Vertflux-Subject')
+    const username = getHeader(event, 'X-Vertflux-Username')
+    const email = getHeader(event, 'X-Vertflux-Email')
+    // 身份头仅在内部令牌验证成功且用户 ID 符合部署配置时生效。
+    if (subject && subject === useRuntimeConfig(event).vertfluxSsoSubject && username && email) {
+      event.context.authMethod = 'vertflux-sso'
+      event.context.userID = username
+      event.context.userEmail = email
+      return
+    }
     event.context.authMethod = 'site-token'
     event.context.userID = 'root'
     event.context.userEmail = `root@${getRequestURL(event).hostname}`

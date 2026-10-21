@@ -38,7 +38,8 @@
     "NUXT_CF_ACCOUNT_ID": "bf8566234d0f57c2451986e3cdcb01c4",
     "NUXT_DATASET": "vertflux_sink",
     "NUXT_DISABLE_AUTO_BACKUP": "true",
-    "NUXT_PUBLIC_PREVIEW_MODE": "false"
+    "NUXT_PUBLIC_PREVIEW_MODE": "false",
+    "NUXT_VERTFLUX_SSO_SUBJECT": "bbe81a9d-1491-4a7b-9150-be568b4d9030"
   },
   "analytics_engine_datasets": [
     {
@@ -46,6 +47,6 @@
       "dataset": "vertflux_sink"
     }
   ],
-  "workers_dev": true,
+  "workers_dev": false,
   "preview_urls": false
 }

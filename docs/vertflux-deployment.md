@@ -20,3 +20,9 @@
 - `.github/vertflux-preserve-paths.txt` 中的工作流和站点配置会保留；其他源码通过 Git 合并。发生冲突时流程停止，不修改生产部署。
 
 仅重新运行旧版本工作流不会回滚数据库迁移。代码回退应提交到生产分支并重新部署。
+
+## 统一认证
+
+生产入口通过现有 Casdoor 和 OAuth2-Proxy 登录，使用 `vertflux` 组织的账号。登录会话采用每个主机独立的 Secure、HttpOnly Cookie；成功鉴权只在 Worker 实例内缓存 15 秒。Pages 默认域名跳转正式域名，业务 Worker 关闭 workers.dev 和预览地址。所有鉴权失败均拒绝访问，登录回调使用固定上游并校验返回域名。
+
+`/dashboard`、`/api` 和 `/_docs` 需要认证，公共短链接继续开放。入口使用加密 Secret `SINK_SITE_TOKEN` 调用内部 API，浏览器只持有 SSO Cookie，不接收内部令牌。GitHub Actions 的 `VERTFLUX_SINK_SITE_TOKEN` 仅供部署步骤同步该 Secret。后台退出会清除当前应用的认证会话。
