@@ -71,7 +71,7 @@ export async function handleMcpRequest(event: H3Event): Promise<Response> {
 
   const handler = createMcpHandler(() => createMcpServer(event), {
     legacy: 'stateless',
-    onerror: error => console.error('[mcp]', error),
+    onerror: () => console.error({ event: 'mcp.request.failed' }),
   })
 
   try {

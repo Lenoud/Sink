@@ -205,7 +205,7 @@ function toolErrorText(toolName: string, error: unknown): string {
     if (statusCode < 500)
       return `${toolName} failed: ${statusCode} ${error.statusMessage || error.message}`
   }
-  console.error(`MCP tool ${toolName} failed`, error)
+  console.error({ event: 'mcp.tool.failed', tool: toolName })
   return `${toolName} failed: internal error`
 }
 

@@ -20,8 +20,8 @@ async function runCleanup(action: string, cleanup: () => Promise<unknown>): Prom
   try {
     await cleanup()
   }
-  catch (error) {
-    console.warn(`[backup] Failed to ${action}`, error)
+  catch {
+    console.warn({ event: 'backup.cleanup.failed', action })
   }
 }
 

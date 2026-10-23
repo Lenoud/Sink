@@ -26,9 +26,8 @@ export async function isSafeUrl(event: H3Event, url: string): Promise<boolean> {
       return !isBlocked
     }
   }
-  catch (e) {
-    const { hostname } = new URL(url)
-    console.warn('isSafeUrl check failed:', hostname, e)
+  catch {
+    console.warn({ event: 'safe_browsing.check.failed' })
   }
   return true
 }

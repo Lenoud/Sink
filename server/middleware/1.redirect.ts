@@ -74,7 +74,6 @@ export default eventHandler(async (event) => {
     link = await getLink(event, caseSensitive ? slug : lowerCaseSlug, linkCacheTtl)
 
     if (!caseSensitive && !link && lowerCaseSlug !== slug) {
-      console.log('original slug fallback:', `slug:${slug} lowerCaseSlug:${lowerCaseSlug}`)
       link = await getLink(event, slug, linkCacheTtl)
     }
 

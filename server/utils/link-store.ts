@@ -116,12 +116,11 @@ export async function createLinks(event: H3Event, links: Link[]): Promise<Create
   try {
     await writeThroughCaches(event, successful)
   }
-  catch (error) {
+  catch {
     console.error({
       event: 'link_cache.operation.failed',
       operation: 'bulk-write-through',
-      slugs: successful.map(item => item.link.slug),
-      error: error instanceof Error ? error.message : String(error),
+      count: successful.length,
     })
     await Promise.all(successful.map(item => deleteLinkCache(event, item.link.slug)))
   }

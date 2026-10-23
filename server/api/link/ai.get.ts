@@ -87,8 +87,8 @@ export default eventHandler(async (event) => {
       },
     }) as AiChatResponse
   }
-  catch (error) {
-    console.warn('Workers AI slug generation failed; using fallback.', error)
+  catch {
+    console.warn({ event: 'ai.slug_generation.failed' })
     return { slug: fallbackSlug(event, url) }
   }
 

@@ -144,7 +144,6 @@ export function collectAccessLog(event: H3Event): AccessLogResult | undefined {
 
   const { disableBotAccessLog } = useRuntimeConfig(event)
   if (isBot && disableBotAccessLog) {
-    console.log('bot access log disabled:', userAgent)
     return
   }
 
@@ -200,8 +199,7 @@ export function writeAccessLog(event: H3Event, accessLogs: LogsMap): void {
       blobs: logs2blobs(accessLogs),
       doubles: logs2doubles(accessLogs),
     })
-    return
   }
 
-  console.log('access logs:', accessLogs)
+  // 未配置分析绑定时不向运行日志输出访问明细。
 }

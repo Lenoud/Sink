@@ -14,11 +14,7 @@
   ],
   "keep_vars": true,
   "upload_source_maps": true,
-  "observability": {
-    "logs": {
-      "enabled": true
-    }
-  },
+  "observability": { "enabled": true, "redact_query_string": true, "logs": { "enabled": true, "invocation_logs": false }, "traces": { "enabled": false } },
   "kv_namespaces": [
     {
       "binding": "KV",

@@ -101,8 +101,8 @@ export default eventHandler(async (event) => {
       },
     }) as AiChatResponse
   }
-  catch (error) {
-    console.warn('Workers AI metadata generation failed; using fallback.', error)
+  catch {
+    console.warn({ event: 'ai.metadata_generation.failed' })
     return fallbackMetadata(url)
   }
 

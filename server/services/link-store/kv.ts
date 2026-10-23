@@ -12,13 +12,8 @@ function isActiveExpiration(expiration: number | null | undefined): boolean {
   return expiration === null || expiration === undefined || expiration > Math.floor(Date.now() / 1000)
 }
 
-function logCacheError(operation: string, slug: string, error: unknown): void {
-  console.error({
-    event: 'link_cache.operation.failed',
-    operation,
-    slug,
-    error: error instanceof Error ? error.message : String(error),
-  })
+function logCacheError(operation: string): void {
+  console.error({ event: 'link_cache.operation.failed', operation })
 }
 
 export async function readLegacyKvLink(event: H3Event, slug: string, cacheTtl?: number): Promise<LegacyKvLinkResult> {
@@ -43,8 +38,8 @@ export async function putLinkCache(event: H3Event, link: Link, effectiveExpiresA
     await event.context.cloudflare.env.KV.put(`link:${link.slug}`, JSON.stringify(link), { expiration })
     return true
   }
-  catch (error) {
-    logCacheError('put', link.slug, error)
+  catch {
+    logCacheError('put')
     return false
   }
 }
@@ -53,8 +48,8 @@ export async function deleteLinkCache(event: H3Event, slug: string): Promise<voi
   try {
     await event.context.cloudflare.env.KV.delete(`link:${slug}`)
   }
-  catch (error) {
-    logCacheError('delete', slug, error)
+  catch {
+    logCacheError('delete')
   }
 }
 

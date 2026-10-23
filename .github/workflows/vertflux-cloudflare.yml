@@ -39,10 +39,12 @@ jobs:
         run: |
           npm install --global pnpm@11.11.0
       - name: 检查统一认证访问边界
-        run: node --test deploy/vertflux-gateway/auth.check.mjs
+        run: node --test deploy/vertflux-gateway/*.check.mjs
       - name: 安装依赖
         run: |
           pnpm install --frozen-lockfile
+      - name: 检查服务日志脱敏
+        run: pnpm exec vitest run --config vitest.logging.config.ts
       - name: 构建短链接应用
         run: |
           pnpm build

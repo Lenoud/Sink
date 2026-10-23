@@ -76,3 +76,18 @@ describe('fetchPageMarkdown', () => {
     expect(result).toHaveLength(4096)
   })
 })
+
+describe('页面 Markdown 错误日志脱敏', () => {
+  it('请求失败时不输出私有 URL 和异常正文', async () => {
+    const output = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('private-upstream-response')))
+    try {
+      await expect(fetchPageMarkdown(createEvent({}), 'https://example.com/private-path?token=private-token', createAI())).resolves.toBeNull()
+      expect(output).toHaveBeenCalledWith({ event: 'markdown.fetch.failed' })
+      expect(JSON.stringify(output.mock.calls)).not.toContain('private-')
+    }
+    finally {
+      output.mockRestore()
+    }
+  })
+})

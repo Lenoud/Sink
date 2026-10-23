@@ -64,5 +64,7 @@ describe('createLinks', () => {
     expect(mocks.d1CreateLinks).toHaveBeenCalledOnce()
     expect(mocks.deleteLinkCache).toHaveBeenCalledWith(expect.anything(), link.slug)
     expect(consoleError).toHaveBeenCalledWith(expect.objectContaining({ operation: 'bulk-write-through' }))
+    expect(JSON.stringify(consoleError.mock.calls)).not.toContain('bulk-success')
+    expect(JSON.stringify(consoleError.mock.calls)).not.toContain('version query failed')
   })
 })
